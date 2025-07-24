@@ -1,17 +1,32 @@
-# Project Moved to [Vitest Monorepo](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node)
+<p align="center">
+<img src="https://github.com/vitest-dev/vitest/blob/main/packages/vite-node/assets/vite-node.svg?raw=true" height="120">
+</p>
 
-<details>
+<h1 align="center">
+vite-node
+</h1>
+<p align="center">
+Vite as Node runtime.<br>The engine that powers <a href="https://github.com/vitest-dev/vitest">Vitest</a> and <a href="https://github.com/nuxt/nuxt">Nuxt 3 Dev SSR</a>.
+<p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/npm/v/vite-node?color=FCC72B&label="></a>
+<p>
 
-# vite-node
+## Features
 
-[![NPM version](https://img.shields.io/npm/v/vite-node?color=a1b858&label=)](https://www.npmjs.com/package/vite-node)
+- On-demand evaluation
+- Vite's pipeline, plugins, resolve, aliasing
+- Out-of-box ESM & TypeScript support
+- Respect `vite.config.ts`
+- Hot module replacement (HMR)
+- Separate server/client architecture
+- Top-level `await`
+- Shims for `__dirname` and `__filename` in ESM
+- Access to native node modules like `fs`, `path`, etc.
 
-Vite as Node runtime.
+## CLI Usage
 
-> **EXPERIMENTAL**
-
-
-## Usage
+Run JS/TS file on Node.js using Vite's resolvers and transformers.
 
 ```bash
 npx vite-node index.ts
@@ -23,29 +38,141 @@ Options:
 npx vite-node -h
 ```
 
-## Features
+### Options via CLI
 
-- Out-of-box ESM & TypeScript support (possible for more with plugins)
-- Top-level await
-- Vite plugins, resolve, aliasing
-- Respect `vite.config.ts`
-- Shims for `__dirname` and `__filename` in ESM
-- Access to native node modules like `fs`, `path`, etc.
-- Watch mode (like `nodemon`)
+[All `ViteNodeServer` options](https://github.com/vitest-dev/vitest/blob/main/packages/vite-node/src/types.ts#L92-L111) are supported by the CLI. They may be defined through the dot syntax, as shown below:
 
-## When NOT to Use
+```bash
+npx vite-node --options.deps.inline="module-name" --options.deps.external="/module-regexp/" index.ts
+```
 
-- Production, yet - in very early stage, check it later
-- Most of the time, when other tools can do that job
-  - We need to start a Vite server upon each execution, which inevitably introduces some overhead. Only use it when you want the same behavior as Vite or the powerful plugins system (for example, testing components with a Vite-specific setup).
+Note that for options supporting RegExps, strings passed to the CLI must start _and_ end with a `/`;
 
-## Why?
+### Hashbang
 
-It runs Vite's id resolving, module transforming, and most importantly, the powerful plugins system!
+If you prefer to write scripts that don't need to be passed into Vite Node, you can declare it in the [hashbang](https://bash.cyberciti.biz/guide/Shebang).
 
-## How?
+Simply add `#!/usr/bin/env vite-node --script` at the top of your file:
 
-It fires up a Vite dev server, transforms the requests, and runs them in Node.
+_file.ts_
+
+```ts
+#!/usr/bin/env vite-node --script
+
+console.log('argv:', process.argv.slice(2))
+```
+
+And make the file executable:
+
+```sh
+chmod +x ./file.ts
+```
+
+Now, you can run the file without passing it into Vite Node:
+
+```sh
+$ ./file.ts hello
+argv: [ 'hello' ]
+```
+
+Note that when using the `--script` option, Vite Node forwards every argument and option to the script to execute, even the one supported by Vite Node itself.
+
+## Programmatic Usage
+
+In Vite Node, the server and runner (client) are separated, so you can integrate them in different contexts (workers, cross-process, or remote) if needed. The demo below shows a simple example of having both (server and runner) running in the same context
+
+```ts
+import { createServer, version as viteVersion } from 'vite'
+import { ViteNodeRunner } from 'vite-node/client'
+import { ViteNodeServer } from 'vite-node/server'
+import { installSourcemapsSupport } from 'vite-node/source-map'
+
+// create vite server
+const server = await createServer({
+  optimizeDeps: {
+    // It's recommended to disable deps optimization
+    noDiscovery: true,
+    include: undefined,
+  },
+})
+
+// For old Vite, this is needed to initialize the plugins.
+if (Number(viteVersion.split('.')[0]) < 6) {
+  await server.pluginContainer.buildStart({})
+}
+
+// create vite-node server
+const node = new ViteNodeServer(server)
+
+// fixes stacktraces in Errors
+installSourcemapsSupport({
+  getSourceMap: source => node.getSourceMap(source),
+})
+
+// create vite-node runner
+const runner = new ViteNodeRunner({
+  root: server.config.root,
+  base: server.config.base,
+  // when having the server and runner in a different context,
+  // you will need to handle the communication between them
+  // and pass to this function
+  fetchModule(id) {
+    return node.fetchModule(id)
+  },
+  resolveId(id, importer) {
+    return node.resolveId(id, importer)
+  },
+})
+
+// execute the file
+await runner.executeFile('./example.ts')
+
+// close the vite server
+await server.close()
+```
+
+## Debugging
+
+### Debug Transformation
+
+Sometimes you might want to inspect the transformed code to investigate issues. You can set environment variable `VITE_NODE_DEBUG_DUMP=true` to let vite-node write the transformed result of each module under `.vite-node/dump`.
+
+If you want to debug by modifying the dumped code, you can change the value of `VITE_NODE_DEBUG_DUMP` to `load` and search for the dumped files and use them for executing.
+
+```bash
+VITE_NODE_DEBUG_DUMP=load vite-node example.ts
+```
+
+Or programmatically:
+
+```js
+import { ViteNodeServer } from 'vite-node/server'
+
+const server = new ViteNodeServer(viteServer, {
+  debug: {
+    dumpModules: true,
+    loadDumppedModules: true,
+  },
+})
+```
+
+### Debug Execution
+
+If the process gets stuck, it might be because there are unresolvable circular dependencies. You can set `VITE_NODE_DEBUG_RUNNER=true` for vite-node to warn about this.
+
+```bash
+VITE_NODE_DEBUG_RUNNER=true vite-node example.ts
+```
+
+Or programmatically:
+
+```js
+import { ViteNodeRunner } from 'vite-node/client'
+
+const runner = new ViteNodeRunner({
+  debug: true,
+})
+```
 
 ## Credits
 
@@ -64,5 +191,3 @@ Thanks [@brillout](https://github.com/brillout) for kindly sharing this package 
 ## License
 
 [MIT](./LICENSE) License © 2021 [Anthony Fu](https://github.com/antfu)
-  
-</details>
