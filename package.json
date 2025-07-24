@@ -6,13 +6,13 @@
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "license": "MIT",
   "funding": "https://opencollective.com/antfu",
-  "homepage": "https://github.com/antfu/vite-node#readme",
+  "homepage": "https://github.com/antfu-collective/vite-node#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/vite-node.git"
+    "url": "git+https://github.com/antfu-collective/vite-node.git"
   },
   "bugs": {
-    "url": "https://github.com/antfu/vite-node/issues"
+    "url": "https://github.com/antfu-collective/vite-node/issues"
   },
   "sideEffects": false,
   "exports": {

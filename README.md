@@ -6,11 +6,15 @@
 vite-node
 </h1>
 <p align="center">
-Vite as Node runtime.<br>The engine that powers <a href="https://github.com/vitest-dev/vitest">Vitest</a> and <a href="https://github.com/nuxt/nuxt">Nuxt 3 Dev SSR</a>.
+Vite as Node runtime.<br>The engine that powers <a href="https://github.com/nuxt/nuxt">Nuxt 3 Dev SSR</a> and <i><a href="https://github.com/vitest-dev/vitest/pull/8208">used to</a></i> power <a href="https://github.com/vitest-dev/vitest">Vitest</a>.
+
 <p>
 <p align="center">
-  <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/npm/v/vite-node?color=FCC72B&label="></a>
+  <a href="https://www.npmjs.com/package/vite-node"><img src="https://img.shields.io/npm/v/vite-node?color=FCC72B&label="></a>
 <p>
+
+> [!NOTE]
+> This project is firstly inspired from [Nuxt 3's SSR](https://antfu.me/posts/dev-ssr-on-nuxt) implementation made by [@pi0](https://github.com/pi0), as an PoC. Later it made [Vitest](https://github.com/vitest-dev/vitest) possible by providing the same pipeline as in Vite. It served the the ecosystem well for a few years and later became a more generalized builtin solution as [Vite Environment Module Runner](https://vite.dev/guide/api-environment.html). Vitest has [migrated to the new official solution](https://github.com/vitest-dev/vitest/pull/8208), which means `vite-node` has finished its mission. We will still keep it around for the ecosystem that built around it, but for new projects, please consider using the builtin Vite one instead.
 
 ## Features
 
@@ -40,7 +44,7 @@ npx vite-node -h
 
 ### Options via CLI
 
-[All `ViteNodeServer` options](https://github.com/vitest-dev/vitest/blob/main/packages/vite-node/src/types.ts#L92-L111) are supported by the CLI. They may be defined through the dot syntax, as shown below:
+[All `ViteNodeServer` options](https://github.com/antfu-collective/vite-node/blob/main/src/types.ts#L92-L111) are supported by the CLI. They may be defined through the dot syntax, as shown below:
 
 ```bash
 npx vite-node --options.deps.inline="module-name" --options.deps.external="/module-regexp/" index.ts
