@@ -1,6 +1,5 @@
 import { builtinModules, createRequire } from 'node:module'
 import process from 'node:process'
-import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import resolve from '@rollup/plugin-node-resolve'
 import { defineConfig } from 'rollup'
@@ -41,7 +40,6 @@ const plugins = [
     preferBuiltins: true,
   }),
   json(),
-  commonjs(),
   oxc({
     transform: {
       target: 'node14',
@@ -59,8 +57,8 @@ export default defineConfig([
     output: {
       dir: 'dist',
       format: 'esm',
-      entryFileNames: '[name].mjs',
-      chunkFileNames: 'chunk-[name].mjs',
+      entryFileNames: '[name].js',
+      chunkFileNames: 'chunk-[name].js',
     },
     external,
     plugins: [
@@ -70,19 +68,7 @@ export default defineConfig([
     onwarn,
   },
   {
-    input: entries,
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-      entryFileNames: '[name].cjs',
-      chunkFileNames: 'chunk-[name].cjs',
-    },
-    external,
-    plugins,
-    onwarn,
-  },
-  {
-    input: dtsUtils.dtsInput(entries, { ext: 'mts' }),
+    input: dtsUtils.dtsInput(entries, { ext: 'ts' }),
     output: {
       dir: 'dist',
       entryFileNames: '[name].d.ts',
