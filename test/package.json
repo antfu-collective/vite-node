@@ -1,0 +1,17 @@
+{
+  "name": "@vitest/test-vite-node",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "dev": "vite-node --watch ./src/*.ts",
+    "debug:dev": "DEBUG=vite-node:* node --inspect-brk ../../packages/vite-node/dist/cli.cjs --watch ./src/*",
+    "debug": "node --inspect-brk ../../packages/vite-node/dist/cli.js"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.8",
+    "inquirer": "^12.8.2",
+    "vite-node": "workspace:*"
+  }
+}
