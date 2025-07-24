@@ -9,6 +9,7 @@ import type {
 import assert from 'node:assert'
 import { existsSync } from 'node:fs'
 import { performance } from 'node:perf_hooks'
+import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 import createDebug from 'debug'
 import { join, normalize, relative, resolve } from 'pathe'

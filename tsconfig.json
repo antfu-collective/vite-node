@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "ESNext",
     "lib": ["esnext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "strict": true,
+    "declaration": true,
     "noEmit": true,
     "stripInternal": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "isolatedDeclarations": true,
-    "declaration": true,
-    "composite": true
+    "skipLibCheck": true
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["./dist"]

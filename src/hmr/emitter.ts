@@ -1,5 +1,6 @@
 import type { HMRPayload, Plugin } from 'vite'
 import { EventEmitter } from 'node:events'
+import process from 'node:process'
 
 export type EventType = string | symbol
 export type Handler<T = unknown> = (event: T) => void

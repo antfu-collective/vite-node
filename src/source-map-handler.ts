@@ -7,8 +7,10 @@ import type {
   OriginalMapping,
   SourceMapInput,
 } from '@jridgewell/trace-mapping'
+import { Buffer } from 'node:buffer'
 import fs from 'node:fs'
 import path from 'node:path'
+import process from 'node:process'
 import { originalPositionFor, TraceMap } from '@jridgewell/trace-mapping'
 
 // Only install once if called multiple times
@@ -20,7 +22,7 @@ const fileContentsCache: Record<string, string> = {}
 // Maps a file path to a source map for that file
 const sourceMapCache: Record<
   string,
-  { url: string | null; map: TraceMap | null }
+  { url: string | null, map: TraceMap | null }
 > = {}
 
 // Regex for detecting source maps
@@ -29,7 +31,7 @@ const reSourceMap = /^data:application\/json[^,]+base64,/
 type RetrieveFileHandler = (path: string) => string | null | undefined
 type RetrieveMapHandler = (
   source: string
-) => { url: string; map?: string | SourceMapInput | null } | null | undefined
+) => { url: string, map?: string | SourceMapInput | null } | null | undefined
 
 // Priority list of retrieve handlers
 let retrieveFileHandlers: RetrieveFileHandler[] = []

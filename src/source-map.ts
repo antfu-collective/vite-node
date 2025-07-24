@@ -1,5 +1,6 @@
 import type { TransformResult } from 'vite'
 import type { EncodedSourceMap } from './types'
+import { Buffer } from 'node:buffer'
 import { dirname, isAbsolute, relative, resolve } from 'pathe'
 import { install } from './source-map-handler'
 import { withTrailingSlash } from './utils'

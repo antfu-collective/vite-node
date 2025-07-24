@@ -1,6 +1,7 @@
 import type { Arrayable, Nullable } from './types'
 import { existsSync, promises as fsp } from 'node:fs'
 import { builtinModules } from 'node:module'
+import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { dirname, join, resolve } from 'pathe'
 
@@ -131,7 +132,7 @@ export function isPrimitive(v: any): boolean {
 export function toFilePath(
   id: string,
   root: string,
-): { path: string; exists: boolean } {
+): { path: string, exists: boolean } {
   let { absolute, exists } = (() => {
     if (id.startsWith('/@fs/')) {
       return { absolute: id.slice(4), exists: true }

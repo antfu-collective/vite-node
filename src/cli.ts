@@ -1,5 +1,6 @@
 import type { ViteNodeServerOptions } from './types'
 import { resolve } from 'node:path'
+import process from 'node:process'
 import cac from 'cac'
 import c from 'tinyrainbow'
 import { createServer, loadEnv, version as viteVersion } from 'vite'

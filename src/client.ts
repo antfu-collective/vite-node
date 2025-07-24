@@ -2,6 +2,7 @@ import type { HotContext, ModuleCache, ViteNodeRunnerOptions } from './types'
 
 import { createRequire } from 'node:module'
 import { dirname, resolve } from 'node:path'
+import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import vm from 'node:vm'
 import createDebug from 'debug'
