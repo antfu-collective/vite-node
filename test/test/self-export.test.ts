@@ -1,6 +1,6 @@
 import { resolve } from 'pathe'
 import { expect, it } from 'vitest'
-import { runViteNodeCli } from '../../test-utils'
+import { runViteNodeCli } from '../test-utils'
 import ansiEscapes, { HelloWorld } from '../src/self-export'
 
 it('should export self', () => {

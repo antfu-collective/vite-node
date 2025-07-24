@@ -14,9 +14,9 @@
     "skipLibCheck": true,
     "paths": {
       "vite-node": ["./src/index.ts"],
+      "vite-node/package.json": ["./package.json"],
       "vite-node/*": ["./src/*"]
     }
   },
-  "include": ["./src/**/*.ts"],
   "exclude": ["./dist"]
 }

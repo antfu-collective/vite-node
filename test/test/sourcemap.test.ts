@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import type { TransformResult } from 'vite'
 import { describe, expect, it } from 'vitest'
-import { withInlineSourcemap } from '../../../packages/vite-node/src/source-map'
+import { withInlineSourcemap } from '../../src/source-map'
 
 it('regex match', () => {
   const regex = /\/\/# sourceMappingURL=data:application\/json;charset=utf-8;base64,[A-Za-z0-9+/=]+$/gm

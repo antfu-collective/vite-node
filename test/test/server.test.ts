@@ -73,9 +73,6 @@ describe('server correctly caches data', () => {
           middlewareMode: true,
           watch: null,
         },
-        optimizeDeps: {
-          disabled: true,
-        },
         plugins: [plugin],
       })
       await use(server)

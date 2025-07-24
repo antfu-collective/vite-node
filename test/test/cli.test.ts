@@ -1,7 +1,7 @@
 import { resolve } from 'pathe'
 import pkg from 'vite-node/package.json'
 import { expect, it } from 'vitest'
-import { editFile, runViteNodeCli } from '../../test-utils'
+import { editFile, runViteNodeCli } from '../test-utils'
 
 const entryPath = resolve(import.meta.dirname, '../src/cli-parse-args.js')
 

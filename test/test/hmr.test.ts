@@ -1,6 +1,6 @@
 import { resolve } from 'pathe'
 import { test } from 'vitest'
-import { editFile, runViteNodeCli } from '../../test-utils'
+import { editFile, runViteNodeCli } from '../test-utils'
 
 test('hmr.accept works correctly', async () => {
   const scriptFile = resolve(import.meta.dirname, '../src/hmr-script.js')
