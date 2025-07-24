@@ -14,7 +14,8 @@ Vite as Node runtime.<br>The engine that powers <a href="https://github.com/nuxt
 <p>
 
 > [!NOTE]
-> This project is firstly inspired from [Nuxt 3's SSR](https://antfu.me/posts/dev-ssr-on-nuxt) implementation made by [@pi0](https://github.com/pi0), as an PoC. Later it made [Vitest](https://github.com/vitest-dev/vitest) possible by providing the same pipeline as in Vite. It served the the ecosystem well for a few years and later became a more generalized builtin solution as [Vite Environment Module Runner](https://vite.dev/guide/api-environment.html). Vitest has [migrated to the new official solution](https://github.com/vitest-dev/vitest/pull/8208), which means `vite-node` has finished its mission. We will still keep it around for the ecosystem that built around it, but for new projects, please consider using the builtin Vite one instead.
+> This project is firstly inspired by [Nuxt 3's SSR](https://antfu.me/posts/dev-ssr-on-nuxt) implementation made by [@pi0](https://github.com/pi0), as a PoC. Later, it made [Vitest](https://github.com/vitest-dev/vitest) possible by providing the same pipeline as in Vite. It served the ecosystem well for a few years and later became a more generalized built-in solution as [Vite Environment Module Runner](https://vite.dev/guide/api-environment.html). Vitest has [migrated to the new official solution](https://github.com/vitest-dev/vitest/pull/8208), which means `vite-node` has finished its mission. We will still keep it around for the ecosystem that built around it, but for new projects, please consider using the builtin Vite one instead.
+
 
 ## Features
 
