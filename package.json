@@ -51,7 +51,8 @@
     "build": "rimraf dist && rollup -c",
     "dev": "rollup -c --watch --watch.include 'src/**' -m inline",
     "typecheck": "tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "bumpp && pnpm publish"
   },
   "dependencies": {
     "cac": "^6.7.14",
@@ -68,6 +69,7 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/debug": "^4.1.12",
     "@types/node": "^24.1.0",
+    "bumpp": "^10.2.1",
     "eslint": "^9.31.0",
     "rollup": "^4.45.1",
     "rollup-plugin-dts": "^6.2.1",

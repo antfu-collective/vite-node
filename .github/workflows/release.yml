@@ -1,5 +1,9 @@
 name: Release
 
+permissions:
+  id-token: write
+  contents: write
+
 on:
   push:
     tags:
@@ -9,26 +13,23 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v2.0.1
-      #   with:
-      #     version: 6.15.1
-
-      - name: Set node version to ${{ matrix.node_version }}
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
         with:
-          node-version: ${{ matrix.node_version }}
-          # cache: "pnpm"
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          registry-url: https://registry.npmjs.org/
 
-      # - run: pnpm i -g @antfu/ni
-      # - run: nci
-      # - run: nr test --if-present
-      # - run: npm publish --access public
+      - run: pnpm dlx changelogithub
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      # # Uncomment the following lines to publish to npm on CI
+      #
+      # - run: pnpm install
+      # - run: pnpm publish --no-git-checks -r --access public
       #   env:
       #     NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-      - run: npx conventional-github-releaser -p angular
-        env:
-          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      #     NPM_CONFIG_PROVENANCE: true
