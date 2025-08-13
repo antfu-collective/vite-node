@@ -10,7 +10,6 @@
     "noEmit": true,
     "stripInternal": true,
     "esModuleInterop": true,
-    "isolatedDeclarations": true,
     "skipLibCheck": true,
     "paths": {
       "vite-node": ["./src/index.ts"],
@@ -18,5 +17,8 @@
       "vite-node/*": ["./src/*"]
     }
   },
-  "include": ["./src/**/*"]
+  "exclude": [
+    "./src/**/*",
+    "./dist"
+  ]
 }

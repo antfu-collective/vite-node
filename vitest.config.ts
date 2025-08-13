@@ -1,5 +1,6 @@
 import process from 'node:process'
 import { defineConfig } from 'vitest/config'
+import { fileURLToPath } from 'node:url'
 
 export default defineConfig({
   test: {
@@ -9,6 +10,13 @@ export default defineConfig({
       if (log.includes('Port is already')) {
         return false
       }
+    },
+  },
+  resolve: {
+    alias: {
+      'vite-node/server': fileURLToPath(new URL('./src/server.ts', import.meta.url)),
+      'vite-node/package.json': fileURLToPath(new URL('./package.json', import.meta.url)),
+      'vite-node': fileURLToPath(new URL('./src/index.ts', import.meta.url)),
     },
   },
 })

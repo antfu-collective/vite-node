@@ -73,6 +73,7 @@
     "eslint": "^9.32.0",
     "rollup": "^4.46.2",
     "rollup-plugin-dts": "^6.2.1",
+    "tinyexec": "^1.0.1",
     "tinyrainbow": "^2.0.0",
     "typescript": "^5.9.2",
     "unplugin-isolated-decl": "^0.14.6",
