@@ -58,12 +58,12 @@ export type FetchFunction = (id: string) => Promise<FetchResult>
 
 export type ResolveIdFunction = (
   id: string,
-  importer?: string
+  importer?: string,
 ) => Awaitable<ViteNodeResolveId | null | undefined | void>
 
 export type CreateHotContextFunction = (
   runner: ViteNodeRunner,
-  url: string
+  url: string,
 ) => HotContext
 
 export interface ModuleCache {

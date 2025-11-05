@@ -82,7 +82,7 @@ export async function reload(runner: ViteNodeRunner, files: string[]): Promise<a
 async function notifyListeners<T extends string>(
   runner: ViteNodeRunner,
   event: T,
-  data: InferCustomEventPayload<T>
+  data: InferCustomEventPayload<T>,
 ): Promise<void>
 async function notifyListeners(
   runner: ViteNodeRunner,

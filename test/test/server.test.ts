@@ -2,11 +2,11 @@ import type { Plugin, ViteDevServer } from 'vite'
 import { join, resolve } from 'pathe'
 import { createServer } from 'vite'
 import { ViteNodeServer } from 'vite-node/server'
-import { describe, expect, test, vi } from 'vitest'
+import { it as baseTest, describe, expect, it, vi } from 'vitest'
 import { extractSourceMap } from '../../src/source-map'
 
 describe('server works correctly', async () => {
-  test('resolve id considers transform mode', async () => {
+  it('resolve id considers transform mode', async () => {
     const resolveId = vi.fn()
 
     const vnServer = new ViteNodeServer({
@@ -35,7 +35,7 @@ describe('server works correctly', async () => {
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 describe('server correctly caches data', () => {
-  const it = test.extend<{
+  const it = baseTest.extend<{
     root: string
     plugin: Plugin
     ssrFiles: string[]
@@ -230,7 +230,7 @@ describe('server correctly caches data', () => {
 
 describe('externalize', () => {
   describe('by default', () => {
-    test('should externalize vite\'s cached dependencies', async () => {
+    it('should externalize vite\'s cached dependencies', async () => {
       const vnServer = new ViteNodeServer({
         config: {
           root: '/',
@@ -244,7 +244,7 @@ describe('externalize', () => {
   })
 
   describe('with server.deps.inline: true', () => {
-    test('should not externalize vite\'s cached dependencies', async () => {
+    it('should not externalize vite\'s cached dependencies', async () => {
       const vnServer = new ViteNodeServer({
         config: {
           root: '/',
@@ -262,7 +262,7 @@ describe('externalize', () => {
   })
 
   describe('with server.deps.inline including the cache dir', () => {
-    test('should not externalize vite\'s cached dependencies', async () => {
+    it('should not externalize vite\'s cached dependencies', async () => {
       const vnServer = new ViteNodeServer({
         config: {
           root: '/',

@@ -40,7 +40,11 @@ it('script args in -- after', async () => {
 })
 
 it('exposes .env variables', async () => {
-  const { stdout } = await runViteNodeCli(resolve(import.meta.dirname, '../src/cli-print-env.js'))
+  const { stdout } = await runViteNodeCli(
+    '--root',
+    resolve(import.meta.dirname, '..'),
+    resolve(import.meta.dirname, '../src/cli-print-env.js'),
+  )
   const env = JSON.parse(stdout)
   expect(env.MY_TEST_ENV).toBe('hello')
 })
