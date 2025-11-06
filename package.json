@@ -29,14 +29,6 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./dist/index.d.ts"
-      ]
-    }
-  },
   "bin": {
     "vite-node": "./vite-node.js"
   },
@@ -49,6 +41,7 @@
   },
   "scripts": {
     "lint": "eslint",
+    "prepack": "npm run build",
     "build": "rimraf dist && rollup -c",
     "dev": "rollup -c --watch --watch.include 'src/**' -m inline",
     "typecheck": "tsc --noEmit",
