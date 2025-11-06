@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/vitest-dev/vitest/blob/main/packages/vite-node/assets/vite-node.svg?raw=true" height="120">
+<img src="https://github.com/antfu/vite-node/blob/main/assets/vite-node.svg?raw=true" height="120">
 </p>
 
 <h1 align="center">
