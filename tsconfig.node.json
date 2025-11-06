@@ -5,17 +5,17 @@
     "lib": ["esnext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "paths": {
+      "vite-node": ["./src/index.ts"],
+      "vite-node/package.json": ["./package.json"],
+      "vite-node/*": ["./src/*"]
+    },
     "strict": true,
     "declaration": true,
     "noEmit": true,
     "stripInternal": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "paths": {
-      "vite-node": ["./src/index.ts"],
-      "vite-node/package.json": ["./package.json"],
-      "vite-node/*": ["./src/*"]
-    }
+    "skipLibCheck": true
   },
   "exclude": [
     "./src/**/*",

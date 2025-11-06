@@ -30,7 +30,7 @@ const reSourceMap = /^data:application\/json[^,]+base64,/
 
 type RetrieveFileHandler = (path: string) => string | null | undefined
 type RetrieveMapHandler = (
-  source: string
+  source: string,
 ) => { url: string, map?: string | SourceMapInput | null } | null | undefined
 
 // Priority list of retrieve handlers

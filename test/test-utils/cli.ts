@@ -14,7 +14,7 @@ export class Cli {
   private stdin: ReadableOrWritable
   private preserveAnsi?: boolean
 
-  constructor(options: { stdin: ReadableOrWritable; stdout: ReadableOrWritable; stderr: ReadableOrWritable; preserveAnsi?: boolean }) {
+  constructor(options: { stdin: ReadableOrWritable, stdout: ReadableOrWritable, stderr: ReadableOrWritable, preserveAnsi?: boolean }) {
     this.stdin = options.stdin
     this.stdin = options.stdin
     this.preserveAnsi = options.preserveAnsi

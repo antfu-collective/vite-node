@@ -7,15 +7,15 @@ export type Handler<T = unknown> = (event: T) => void
 export interface Emitter<Events extends Record<EventType, unknown>> {
   on: <Key extends keyof Events>(
     type: Key,
-    handler: Handler<Events[Key]>
+    handler: Handler<Events[Key]>,
   ) => void
   off: <Key extends keyof Events>(
     type: Key,
-    handler?: Handler<Events[Key]>
+    handler?: Handler<Events[Key]>,
   ) => void
   emit: (<Key extends keyof Events>(type: Key, event: Events[Key]) => void)
     & (<Key extends keyof Events>(
-      type: undefined extends Events[Key] ? Key : never
+      type: undefined extends Events[Key] ? Key : never,
     ) => void)
 }
 
