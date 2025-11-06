@@ -10,8 +10,8 @@
     "debug": "node --inspect-brk ../../packages/vite-node/dist/cli.js"
   },
   "devDependencies": {
-    "@types/inquirer": "^9.0.8",
-    "inquirer": "^12.9.0",
+    "@types/inquirer": "^9.0.9",
+    "inquirer": "^12.10.0",
     "vite-node": "workspace:*"
   }
 }
