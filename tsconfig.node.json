@@ -15,8 +15,10 @@
     "noEmit": true,
     "stripInternal": true,
     "esModuleInterop": true,
-    "isolatedDeclarations": true,
     "skipLibCheck": true
   },
-  "include": ["./src/**/*"]
+  "exclude": [
+    "./src/**/*",
+    "./dist"
+  ]
 }
