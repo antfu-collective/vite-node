@@ -54,7 +54,7 @@ export interface CliOptions {
 }
 
 async function run(files: string[], options: CliOptions = {}) {
-  if (options.inspect === true) {
+  if (options.inspect) {
     const { open } = await import('node:inspector')
     const [host, port] = options.inspectAddr?.split(':') || ['localhost', '9229']
     open(Number(port), host, false)
