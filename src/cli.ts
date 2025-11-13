@@ -19,7 +19,7 @@ cli
   .option('-m, --mode <mode>', 'Set env mode')
   .option('-w, --watch', 'Restart on file changes, similar to "nodemon"')
   .option('--inspect', 'Enable Node.js inspector')
-  .option('--inspect-addr [host:port]', 'Enable Node.js inspector with specified address', { default: 'localhost:9229' })
+  .option('--inspect-addr [host:port]', 'Enable Node.js inspector with specified address')
   .option('--script', 'Use vite-node as a script runner')
   .option('--options <options>', 'Use specified Vite server options')
   .option('-v, --version', 'Output the version number')
@@ -54,9 +54,9 @@ export interface CliOptions {
 }
 
 async function run(files: string[], options: CliOptions = {}) {
-  if (options.inspect) {
+  if (options.inspect || options.inspectAddr) {
     const { open } = await import('node:inspector')
-    const [host, port] = options.inspectAddr?.split(':') || ['localhost', '9229']
+    const [host, port] = options.inspectAddr?.split(':') || ['127.0.0.1', '9229']
     open(Number(port), host, false)
   }
 
