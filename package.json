@@ -50,8 +50,8 @@
   },
   "dependencies": {
     "cac": "^6.7.14",
-    "debug": "^4.4.3",
     "es-module-lexer": "^1.7.0",
+    "obug": "^2.0.0",
     "pathe": "^2.0.3",
     "vite": "^7.2.0"
   },
@@ -61,7 +61,6 @@
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@types/debug": "^4.1.12",
     "@types/node": "^24.10.0",
     "bumpp": "^10.3.1",
     "eslint": "^9.39.1",
