@@ -35,8 +35,7 @@
     "vite-node": "./dist/cli.mjs"
   },
   "files": [
-    "dist",
-    "vite-node.js"
+    "dist"
   ],
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
