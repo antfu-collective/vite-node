@@ -5,7 +5,7 @@ import { dirname, resolve } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import vm from 'node:vm'
-import createDebug from 'debug'
+import { createDebug } from 'obug'
 import { extractSourceMap } from './source-map'
 import {
   cleanUrl,
