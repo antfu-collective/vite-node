@@ -84,3 +84,9 @@ it('empty mappings', async () => {
   const result = await runViteNodeCli('--root', root, resolve(root, 'main.ts'))
   await result.viteNode.waitForStdout('[ok]')
 })
+
+it('dynamic import with a loading plugin', async () => {
+  const cli = await runViteNodeCli(resolve(import.meta.dirname, '../src/dynamic-import-with-loader.js'))
+  expect(cli.stderr).toBe('')
+  expect(cli.stdout).toMatch(/Import succeeded from \S*\/test\/src\/example.data\n/)
+})
