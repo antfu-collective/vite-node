@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import type { ViteNodeServerOptions } from './types'
 import { resolve } from 'node:path'
 import process from 'node:process'

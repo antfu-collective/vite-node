@@ -75,7 +75,7 @@ async function runCli(command: string, _options?: CliOptions | string, ...args: 
 
 export async function runViteNodeCli(_options?: CliOptions | string, ...args: string[]) {
   process.env.VITE_TEST_WATCHER_DEBUG = 'true'
-  const { vitest, ...rest } = await runCli(resolve(import.meta.dirname, '../../vite-node.js'), _options, ...args)
+  const { vitest, ...rest } = await runCli(resolve(import.meta.dirname, '../../dist/cli.mjs'), _options, ...args)
 
   return { viteNode: vitest, ...rest }
 }
