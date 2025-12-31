@@ -600,7 +600,7 @@ export class ViteNodeRunner {
 
   /**
    * mutate the given error to have fixed stacktraces based on source maps
-   * similar to Vite's ssrFixStacktrace
+   * Does the same thing as Vite's ssrFixStacktrace
    */
   async ssrFixStacktrace(error: Error): Promise<Error> {
     const stack = (error.stack || '').split('\n')
