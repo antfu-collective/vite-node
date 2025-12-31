@@ -5,6 +5,7 @@ import { dirname, resolve } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import vm from 'node:vm'
+import { originalPositionFor, TraceMap } from '@jridgewell/trace-mapping'
 import { createDebug } from 'obug'
 import { extractSourceMap } from './source-map'
 import {
@@ -595,6 +596,45 @@ export class ViteNodeRunner {
     finally {
       this.options.moduleExecutionInfo?.set(options.filename, finishModuleExecutionInfo())
     }
+  }
+
+  /**
+   * mutate the given error to have fixed stacktraces based on source maps
+   * similar to Vite's ssrFixStacktrace
+   */
+  async ssrFixStacktrace(error: Error): Promise<Error> {
+    const stack = (error.stack || '').split('\n')
+    const rewrittenStack: string[] = []
+
+    for (const line of stack) {
+      const match = line.match(/\((.*):(\d+):(\d+)\)$/)
+      if (match) {
+        const [, file, lineStr, columnStr] = match
+        const lineNum = Number(lineStr)
+        const columnNum = Number(columnStr)
+        const sourceMap = this.moduleCache.getSourceMap(file)
+
+        if (sourceMap) {
+          const traceMap = new TraceMap(sourceMap)
+          const originalPos = originalPositionFor(traceMap, {
+            line: lineNum,
+            column: columnNum,
+          })
+          if (originalPos.source) {
+            const rewrittenLine = line.replace(
+              /\(.*:\d+:\d+\)$/,
+              `(${file}:${originalPos.line || lineNum}:${originalPos.column || columnNum})`,
+            )
+            rewrittenStack.push(rewrittenLine)
+            continue
+          }
+        }
+      }
+      rewrittenStack.push(line)
+    }
+
+    error.stack = rewrittenStack.join('\n') || error.stack
+    return error
   }
 
   /**
