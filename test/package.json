@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.9",
-    "inquirer": "^13.1.0",
+    "inquirer": "^13.2.0",
     "vite-node": "workspace:*"
   }
 }
