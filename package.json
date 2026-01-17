@@ -1,7 +1,7 @@
 {
   "name": "vite-node",
   "type": "module",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "packageManager": "pnpm@10.28.0",
   "description": "Vite as Node.js runtime",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
