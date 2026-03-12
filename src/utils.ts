@@ -185,9 +185,7 @@ export function isNodeBuiltin(id: string): boolean {
  * @category Array
  */
 export function toArray<T>(array?: Nullable<Arrayable<T>>): Array<T> {
-  if (array === null || array === undefined) {
-    array = []
-  }
+  array ??= []
 
   if (Array.isArray(array)) {
     return array
@@ -243,7 +241,7 @@ function traverseBetweenDirs(
 }
 
 export function withTrailingSlash(path: string): string {
-  if (path[path.length - 1] !== '/') {
+  if (path.at(-1) !== '/') {
     return `${path}/`
   }
 

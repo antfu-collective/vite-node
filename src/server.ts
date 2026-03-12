@@ -286,7 +286,7 @@ export class ViteNodeServer {
       return 'ssr'
     }
 
-    if (withoutQuery.match(/\.([cm]?[jt]sx?|json)$/)) {
+    if (/\.(?:[cm]?[jt]sx?|json)$/.test(withoutQuery)) {
       return 'ssr'
     }
     return 'web'

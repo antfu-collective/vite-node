@@ -10,7 +10,7 @@ Vite as Node runtime.<br>The engine that powers <a href="https://github.com/nuxt
 
 <p>
 <p align="center">
-  <a href="https://www.npmjs.com/package/vite-node"><img src="https://img.shields.io/npm/v/vite-node?color=FCC72B&label="></a>
+  <a href="https://npmx.dev/package/vite-node"><img src="https://img.shields.io/npm/v/vite-node?color=FCC72B&label=" alt="vite-node"></a>
 <p>
 
 > [!NOTE]
@@ -188,7 +188,7 @@ Thanks [@brillout](https://github.com/brillout) for kindly sharing this package 
 
 <p align="center">
   <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg'/>
+    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg' alt="Sponsors" />
   </a>
 </p>
 

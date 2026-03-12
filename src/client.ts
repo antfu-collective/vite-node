@@ -150,7 +150,7 @@ export class ModuleCacheMap extends Map<string, ModuleCache> {
         continue
       }
       invalidated.add(id)
-      const subIds = Array.from(super.entries())
+      const subIds = [...super.entries()]
         .filter(([, mod]) => mod.importers?.has(id))
         .map(([key]) => key)
       if (subIds.length) {
@@ -256,7 +256,7 @@ export class ViteNodeRunner {
 
   /** @internal */
   async cachedRequest(id: string, fsPath: string, callstack: string[]) {
-    const importee = callstack[callstack.length - 1]
+    const importee = callstack.at(-1)
 
     const mod = this.moduleCache.get(fsPath)
     const { imports, importers } = mod
@@ -274,7 +274,7 @@ export class ViteNodeRunner {
     // check circular dependency
     if (
       callstack.includes(fsPath)
-      || Array.from(imports.values()).some(i => importers.has(i))
+      || [...imports.values()].some(i => importers.has(i))
     ) {
       if (mod.exports) {
         return mod.exports
