@@ -12,5 +12,14 @@ export default defineConfig({
     'hmr': 'src/hmr/index.ts',
     'source-map': 'src/source-map.ts',
   },
+  dts: true,
   exports: true,
+  deps: {
+    onlyBundle: [
+      'tinyrainbow',
+      '@jridgewell/sourcemap-codec',
+      '@jridgewell/resolve-uri',
+      '@jridgewell/trace-mapping',
+    ],
+  },
 })
