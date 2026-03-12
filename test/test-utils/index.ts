@@ -4,8 +4,7 @@ import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'pathe'
 import { x } from 'tinyexec'
-import { afterEach, onTestFinished } from 'vitest'
-import { getCurrentTest } from 'vitest/suite'
+import { afterEach, onTestFinished, TestRunner } from 'vitest'
 import { Cli } from './cli'
 
 interface CliOptions extends Partial<Options> {
@@ -21,7 +20,7 @@ async function runCli(command: string, _options?: CliOptions | string, ...args: 
     options = undefined
   }
 
-  const signal = getCurrentTest()?.context.signal
+  const signal = TestRunner.getCurrentTest()?.context.signal
   const subprocess = x(command, args, { ...options as Options, signal }).process!
   const cli = new Cli({
     stdin: subprocess.stdin!,
