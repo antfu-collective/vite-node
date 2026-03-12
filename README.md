@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/antfu/vite-node/blob/main/assets/vite-node.svg?raw=true" height="120">
+<img src="https://raw.githubusercontent.com/antfu-collective/vite-node/refs/heads/main/assets/vite-node.svg" alt="vite-node logo" height="120">
 </p>
 
 <h1 align="center">
