@@ -12,6 +12,11 @@ function hashCode(s: string) {
   }, 0)
 }
 
+// Keep dumped filenames comfortably under the filesystem's 255-byte limit
+// (e.g. ENAMETOOLONG on POSIX) while keeping the deterministic hash suffix so
+// distinct ids that truncate to the same prefix still map to different files.
+const MAX_DUMP_FILE_NAME_LENGTH = 200
+
 export class Debugger {
   dumpDir: string | undefined
   initPromise: Promise<void> | undefined
@@ -49,10 +54,17 @@ export class Debugger {
     await fs.mkdir(this.dumpDir, { recursive: true })
   }
 
-  encodeId(id: string) {
-    return `${id.replace(/[^\w@\-]/g, '_').replace(/_+/g, '_')}-${hashCode(
-      id,
-    )}.js`
+  encodeId(id: string): string {
+    const sanitized = id.replace(/[^\w@\-]/g, '_').replace(/_+/g, '_')
+    const hash = hashCode(id)
+    const name = `${sanitized}-${hash}.js`
+    if (name.length <= MAX_DUMP_FILE_NAME_LENGTH) {
+      return name
+    }
+    // Reserve room for `-${hash}.js` and truncate the readable prefix so the
+    // full filename stays within the limit. `-` is ASCII, so bytes === chars.
+    const maxSanitizedLength = MAX_DUMP_FILE_NAME_LENGTH - name.length + sanitized.length
+    return `${sanitized.slice(0, maxSanitizedLength)}-${hash}.js`
   }
 
   async recordExternalize(id: string, path: string): Promise<void> {
