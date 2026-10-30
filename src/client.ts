@@ -591,7 +591,13 @@ export class ViteNodeRunner {
 
     try {
       const fn = vm.runInThisContext(code, options)
-      await fn(...Object.values(context))
+      // Execute the module body on a macrotask instead of synchronously inside
+      // V8's microtask checkpoint. This preserves Node.js's event loop contract
+      // that `process.nextTick` callbacks run before Promise/queueMicrotask
+      // callbacks, matching how native CommonJS entry modules are executed.
+      await new Promise<void>((resolve) => {
+        setImmediate(() => resolve(fn(...Object.values(context))))
+      })
     }
     finally {
       this.options.moduleExecutionInfo?.set(options.filename, finishModuleExecutionInfo())
