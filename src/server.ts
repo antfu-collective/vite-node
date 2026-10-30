@@ -12,7 +12,7 @@ import { performance } from 'node:perf_hooks'
 import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 import { createDebug } from 'obug'
-import { join, normalize, relative, resolve } from 'pathe'
+import { normalize, resolve } from 'pathe'
 import { version as viteVersion } from 'vite'
 import { Debugger } from './debug'
 import { shouldExternalize } from './externalize'
@@ -70,10 +70,10 @@ export class ViteNodeServer {
     const ssrOptions = server.config.ssr
 
     options.deps ??= {}
-    options.deps.cacheDir = relative(
-      server.config.root,
-      options.deps.cacheDir || server.config.cacheDir,
-    )
+    const cacheDir = options.deps.cacheDir || server.config.cacheDir
+    if (cacheDir) {
+      options.deps.cacheDir = resolve(server.config.root, cacheDir)
+    }
 
     if (ssrOptions) {
       // we don't externalize ssr, because it has different semantics in Vite
@@ -330,7 +330,7 @@ export class ViteNodeServer {
 
     if (cacheDir && id.includes(cacheDir)) {
       if (!id.startsWith(withTrailingSlash(this.server.config.root))) {
-        id = join(this.server.config.root, id)
+        id = resolve(this.server.config.root, id)
       }
       const timeout = setTimeout(() => {
         throw new Error(

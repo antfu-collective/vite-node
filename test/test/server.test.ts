@@ -278,4 +278,29 @@ describe('externalize', () => {
       expect(externalize).toBeFalsy()
     })
   })
+
+  describe('with a custom root', () => {
+    it('stores the cache dir as an absolute path', () => {
+      const vnServer = new ViteNodeServer({
+        config: {
+          root: '/project/src',
+          cacheDir: '/project/node_modules/.vite',
+        },
+      } as any, {})
+
+      expect(vnServer.options.deps?.cacheDir).toBe('/project/node_modules/.vite')
+    })
+
+    it('should externalize vite\'s cached dependencies', async () => {
+      const vnServer = new ViteNodeServer({
+        config: {
+          root: '/project/src',
+          cacheDir: '/project/node_modules/.vite',
+        },
+      } as any, {})
+
+      const externalize = await vnServer.shouldExternalize('/project/node_modules/.vite/deps/cached.js')
+      expect(externalize).toBe('/project/node_modules/.vite/deps/cached.js')
+    })
+  })
 })
